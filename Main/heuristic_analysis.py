@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy
 
 GRID_SIZE = 101
-GRID_COUNT = 50
+GRID_COUNT = 100
 PROBABILITY = 0.3
 
 
@@ -43,10 +43,10 @@ def generate_path_graphs(manhattan_paths, euclid_paths, chebyshev_paths):
     plt.plot(x, manhattan_paths, label="Manhattan")
     plt.plot(x, euclid_paths, label="Euclid")
     plt.plot(x, chebyshev_paths, label="Chebyshev")
-
     plt.title("Heuristic Path lengths")
     plt.xlabel("Test Count")
     plt.ylabel("Path Length")
+    leg = plt.legend(loc='upper center')
     plt.show()
 
 

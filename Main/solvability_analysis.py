@@ -33,4 +33,4 @@ def plot_graph(probabilities, solvability_list):
     plt.show()
 
 
-test_main()
+# test_main()

@@ -1,9 +1,13 @@
 # this file calculates density vs solvability graph
-import matplotlib.pyplot as plt
-from Main.search import *
+from Entity.Search import *
+from Main.util import *
+from Main.voyage import get_default_states
+from Entity.Grid import Grid
+from Constants.environment_constants import *
 
-SIZE = 101
-TEST_COUNT = 100
+
+GRID_SIZE = GLOBAL_BIG_MAZE_SIZE
+TEST_COUNT = GLOBAL_TEST_COUNT
 
 
 def test_main():
@@ -16,9 +20,12 @@ def test_main():
 
 def run_tests(probability, test_counts):
     solvability = 0
-    for test_count in range(1, test_counts):
-        grid = Grid.make_grid(probability, SIZE)
-        path = solve_maze(grid, SIZE)
+    for test_count in range(test_counts):
+        grid = Grid.make_grid(probability, GRID_SIZE)
+        start_state, goal_state = get_default_states(grid)
+        search = Search(grid, start_state, goal_state)
+        search.solve_maze()
+        path = search.get_final_path()
         if len(path) > 0:
             solvability += 1
     return solvability
@@ -26,11 +33,7 @@ def run_tests(probability, test_counts):
 
 def plot_graph(probabilities, solvability_list):
     print(solvability_list)
-    plt.title("Density vs Solvabilty")
-    plt.xlabel("Density")
-    plt.ylabel("Solvability")
-    plt.plot(probabilities, solvability_list, color="red")
-    plt.show()
+    generate_graph(probabilities, solvability_list, "Density vs Solvability", "Density", "Solvability")
 
 
-# test_main()
+test_main()

@@ -50,3 +50,31 @@ class State:
     def mark_blocked(self):
         self.is_blocked = True
 
+    @staticmethod
+    def get_children(parent, goal, grid, heuristic, heuristic_weight=1):
+        children = []
+
+        x = parent.x
+        y = parent.y
+        if y > 0 and grid[x][y - 1] == 0:
+            upper_child = State(x, y - 1, grid[x][y - 1], parent.gx + 1,
+                                heuristic(x, y - 1, goal, heuristic_weight), parent)
+            children.append(upper_child)
+
+        if y < len(grid) - 1 and grid[x][y + 1] == 0:
+            lower_child = State(x, y + 1, grid[x][y + 1], parent.gx + 1,
+                                heuristic(x, y + 1, goal, heuristic_weight), parent)
+            children.append(lower_child)
+
+        if x > 0 and grid[x - 1][y] == 0:
+            left_child = State(x - 1, y, grid[x - 1][y], parent.gx + 1,
+                               heuristic(x - 1, y, goal, heuristic_weight), parent)
+            children.append(left_child)
+
+        if x < len(grid) - 1 and grid[x + 1][y] == 0:
+            right_child = State(x + 1, y, grid[x + 1][y], parent.gx + 1,
+                                heuristic(x + 1, y, goal, heuristic_weight), parent)
+            children.append(right_child)
+
+        return children
+

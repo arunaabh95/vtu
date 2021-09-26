@@ -1,32 +1,42 @@
 from Main.util import *
+from Constants.environment_constants import *
 
 
 class Agent:
+    # An Agent should can be either see in compass directions or not at all
+    # We have passed heuristic function just to compute the h(x) of the children and this is a design flaw
+    def __init__(self, complete_grid, goal_state, heuristic_function, heuristic_weight, restrict_field_view_flag):
+        self.complete_grid = complete_grid
+        self.heuristic_function = heuristic_function
+        self.restrict_field_view_flag = restrict_field_view_flag
+        self.heuristic_weight = heuristic_weight
+        self.goal_state = goal_state
 
-    @staticmethod
-    def update_explored_grid(complete_grid, explored_grid, state, goal, heuristic):
-        # update the explored gate with the path
+    def update_explored_grid(self, explored_grid, state):
+        # update the explored grid with the path
         # view all children an update blocks in explored_grid
-        children = get_children(state, goal, explored_grid, heuristic)
+        children = State.get_children(state, self.goal_state, explored_grid,
+                                      self.heuristic_function, self.heuristic_weight)
         for child in children:
-            if complete_grid[child.x][child.y] == 1:
+            if self.complete_grid[child.x][child.y] == 1:
                 explored_grid[child.x][child.y] = 1
 
-    @staticmethod
-    def follow_path(complete_grid, explored_grid, path, goal, heuristic, field_view):
+    # return the first blocked cell
+    def follow_path(self, explored_grid, path):
         final_state = None
         for state in path:
-            if field_view == 1:
-                Agent.update_explored_grid(complete_grid, explored_grid, state, goal, heuristic)
+            # IF the agent is blind we do not need to update the neighbours of the explored grid
+            if self.restrict_field_view_flag == ALLOW_FIELD_OF_VIEW:
+                self.update_explored_grid(explored_grid, state)
 
             # if we encounter an block in our path we check for final state and also mark it as blocked
-            if complete_grid[state.x][state.y] == 1:
+            if self.complete_grid[state.x][state.y] == 1:
                 explored_grid[state.x][state.y] = 1
                 final_state = state.parent_state
                 break
 
             # if we have found the goal state then also we should return
-            if state.x == goal.x and state.y == goal.y:
+            if state.x == self.goal_state.x and state.y == self.goal_state.y:
                 final_state = state
                 break
 

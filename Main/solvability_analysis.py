@@ -1,5 +1,5 @@
 # this file calculates density vs solvability graph
-from Entity.Search import *
+from Main.Search import *
 from Main.util import *
 from Main.voyage import get_default_states
 from Entity.Grid import Grid
@@ -18,6 +18,7 @@ def test_main():
     plot_graph(probabilities, solvability_list)
 
 
+# function to run `test_counts` tests for each probability
 def run_tests(probability, test_counts):
     solvability = 0
     for test_count in range(test_counts):

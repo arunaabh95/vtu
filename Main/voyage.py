@@ -2,14 +2,12 @@ from Entity.State import State
 from Entity.Grid import Grid
 from Constants.environment_constants import *
 from Main.Search import Search
-
-
-# function to initialize start and goal states,
-# For us we have fixed states for start and end,
-# modify this function to make dynamic start and end states
 from Main.util import print_path
 
 
+# this file is a single instance of vanilla flavoured implementation mainly for testing purposes
+
+# This function defines the default start and goal state for all questions
 def get_default_states(complete_grid):
     grid_size = len(complete_grid)
     goal = State(grid_size - 1, grid_size - 1, complete_grid[grid_size - 1][grid_size - 1], 0, 0)

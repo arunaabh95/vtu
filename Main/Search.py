@@ -93,6 +93,8 @@ class Search:
                     return
                 self.start_state = final_state
 
+
+    # This a-star takes information from the search class
     def a_star(self):
         # initializing open list, closed list and path variables then adding start node to the open list
         priority_queue = []
@@ -100,12 +102,11 @@ class Search:
         closed_list = set()
 
         while len(priority_queue) > 0:
-            # print_list(priority_queue)
+
             current_state = heap.heappop(priority_queue)
             closed_list.add(current_state)
 
             if current_state == self.goal_state:
-                # print(current_state.x, " Goal ", current_state.y )
                 self.cells_traversed += len(closed_list)
                 return find_path(self.start_state, current_state)
 
@@ -122,11 +123,16 @@ class Search:
 
                 if old_state is None:
                     heap.heappush(priority_queue, child)
+                # if we see that the path to current child is smaller than the existing path in the open list
+                # we update the node in open list
                 elif closer_from_start(old_state, child):
                     update_with_child(priority_queue, child, old_state)
+
+        # we calculate cells precessed even when we do not get any result
         self.cells_traversed += len(closed_list)
         return []
 
+    # redundant duplication we use this to run astar on complete/ final grid for questions post q5
     @staticmethod
     def generic_a_star(grid, start_state, goal_state, heuristics_function):
         # initializing open list, closed list and path variables then adding start node to the open list
@@ -160,6 +166,7 @@ class Search:
                     update_with_child(priority_queue, child, old_state)
         return []
 
+    # general bfs implementation
     def bfs(self):
         # initializing open list, closed list and path variables then adding start node to the open list
         queue = [self.start_state]
@@ -189,6 +196,7 @@ class Search:
         self.cells_traversed += len(closed_list)
         return []
 
+    # bfs implementation for extra credits
     @staticmethod
     def generic_bfs(grid, start_state, goal_state, heuristics_function):
         # initializing open list, closed list and path variables then adding start node to the open list

@@ -1,24 +1,10 @@
 from math import sqrt
-from Entity.State import State
 import heapq as heap
 import matplotlib.pyplot as plt
 import numpy
 
-
 def make_empty_grid(size):
     return numpy.zeros((size, size))
-
-
-def get_manhattan(x, y, goal):
-    return abs(x-goal.x) + abs(y - goal.y)
-
-
-def get_euclidean(x, y, state2):
-    return sqrt(pow(abs(state2.x - x), 2) + pow(abs(state2.y - y), 2))
-
-
-def get_chebyshev(x, y, state2):
-    return max(abs(state2.x - x), abs(y - state2.y))
 
 
 def get_element_from_list(input_list, element):
@@ -31,7 +17,8 @@ def get_element_from_list(input_list, element):
 def closer_from_start(old_state, new_state):
     return new_state.gx < old_state.gx
 
-
+# Here we are replacing the element to be popped with the last element and removing the last element and then re-heapify
+# we hope this logic saves more time then shifting all the elements by one positions to delete the given element
 def update_with_child(input_list, key, new_key):
     i = 0
     while i < len(input_list):

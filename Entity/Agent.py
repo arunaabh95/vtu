@@ -3,7 +3,7 @@ from Constants.environment_constants import *
 
 
 class Agent:
-    # An Agent should can be either see in compass directions or not at all
+    # An Agent should can either see in compass directions or can only see in the direction of motion
     # We have passed heuristic function just to compute the h(x) of the children and this is a design flaw
     def __init__(self, complete_grid, goal_state, heuristic_function, heuristic_weight, restrict_field_view_flag):
         self.complete_grid = complete_grid
@@ -12,16 +12,18 @@ class Agent:
         self.heuristic_weight = heuristic_weight
         self.goal_state = goal_state
 
+    # update the explored grid based on the path traversed by the agent
+    # view all children and update blocks in explored_grid
     def update_explored_grid(self, explored_grid, state):
-        # update the explored grid with the path
-        # view all children an update blocks in explored_grid
         children = State.get_children(state, self.goal_state, explored_grid,
                                       self.heuristic_function, self.heuristic_weight)
         for child in children:
             if self.complete_grid[child.x][child.y] == 1:
                 explored_grid[child.x][child.y] = 1
 
-    # return the first blocked cell
+    # return the first blocked cell while the agent is traversing the path given to it by the planner
+    # Once the agent is stuck it will return the position of the last block it is stuck on
+    # We have also included the functionality to update the grid as the agent is traversing it
     def follow_path(self, explored_grid, path):
         final_state = None
         for state in path:

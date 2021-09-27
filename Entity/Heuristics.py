@@ -2,7 +2,7 @@ from Constants.environment_constants import *
 import math
 
 
-# class to return heuristics
+# class to return heuristics based on the constant passed to us to determine h(x)
 class Heuristics:
 
     @staticmethod
@@ -32,10 +32,12 @@ class Heuristics:
     def get_chebyshev(x, y, state2, heuristic_weight=1):
         return max(abs(state2.x - x), abs(y - state2.y))
 
+    # add weight to the existing heuristic function to see if we achieve optimizations
     @staticmethod
     def get_weighed_manhattan(x, y, state2, weight):
         return weight * abs(x - state2.x) + weight * abs(y - state2.y)
 
+    # Create a new heuristic by combining the existing heuristics to see if we can optimize our planner
     @staticmethod
     def get_combined_heuristics(x, y, state2, weight=1):
         return (abs(x - state2.x) + abs(y - state2.y) +

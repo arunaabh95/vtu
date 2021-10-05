@@ -31,4 +31,4 @@ def voyage_on_grid(probability, grid):
     voyage(probability, len(grid))
 
 
-# voyage()
+voyage()

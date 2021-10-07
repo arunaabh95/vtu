@@ -18,6 +18,7 @@ def get_element_from_list(input_list, element):
 def closer_from_start(old_state, new_state):
     return new_state.gx < old_state.gx
 
+
 # Here we are replacing the element to be popped with the last element and removing the last element and then re-heapify
 # we hope this logic saves more time then shifting all the elements by one positions to delete the given element
 def update_with_child(input_list, key, new_key):

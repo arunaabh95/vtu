@@ -1,16 +1,13 @@
-from Main.util import *
+from Entity.Agent.Agent import Agent
+from Entity.State import State
 from Constants.environment_constants import *
 
 
-class Agent:
+class FullViewAgent(Agent):
     # An Agent should can either see in compass directions or can only see in the direction of motion
     # We have passed heuristic function just to compute the h(x) of the children and this is a design flaw
-    def __init__(self, complete_grid, goal_state, heuristic_function, heuristic_weight, restrict_field_view_flag):
-        self.complete_grid = complete_grid
-        self.heuristic_function = heuristic_function
-        self.restrict_field_view_flag = restrict_field_view_flag
-        self.heuristic_weight = heuristic_weight
-        self.goal_state = goal_state
+    def __init__(self, complete_grid, goal_state, heuristic_function, heuristic_weight):
+        super().__init__(complete_grid, goal_state, heuristic_function, heuristic_weight)
 
     # update the explored grid based on the path traversed by the agent
     # view all children and update blocks in explored_grid
@@ -28,8 +25,7 @@ class Agent:
         final_state = None
         for state in path:
             # IF the agent is blind we do not need to update the neighbours of the explored grid
-            if self.restrict_field_view_flag == ALLOW_FIELD_OF_VIEW:
-                self.update_explored_grid(explored_grid, state)
+            self.update_explored_grid(explored_grid, state)
 
             # if we encounter an block in our path we check for final state and also mark it as blocked
             if self.complete_grid[state.x][state.y] == 1:

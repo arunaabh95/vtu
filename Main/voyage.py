@@ -16,10 +16,10 @@ def get_default_states(complete_grid):
 
 
 def voyage(probability=GLOBAL_PROBABILITY, grid_size=GLOBAL_SMALL_MAZE_SIZE):
-    grid = Grid.make_grid(0, grid_size)
+    grid = Grid.make_grid(probability, grid_size)
     print(grid)
     start_state, goal_state = get_default_states(grid)
-    search = Search(grid, start_state, goal_state, search_type=BFS)
+    search = Search(grid, start_state, goal_state)
     search.solve_maze()
     path = search.get_final_path()
     print_path(path)

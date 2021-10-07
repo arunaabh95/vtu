@@ -1,6 +1,7 @@
+from Entity.Agent import AgentFactory
+from Entity.State import State
 from Main.util import *
 from Constants.environment_constants import *
-from Entity.Agent import Agent
 from Entity.Heuristics import Heuristics
 import time
 
@@ -59,8 +60,10 @@ class Search:
         grid_size = len(self.grid)
         self.explored_grid = make_empty_grid(grid_size)
         self.heuristics_function = Heuristics.get_heuristic_function(self.heuristics_flag, self.heuristics_weight)
-        self.agent = Agent(self.grid, self.goal_state, self.heuristics_function, self.heuristics_weight,
-                           self.restrict_field_of_view)
+
+        self.agent = AgentFactory.get_agent(self.restrict_field_of_view, self.grid, self.goal_state,
+                                            self.heuristics_function,
+                                            self.heuristics_weight)
         if self.search_type == A_STAR:
             self.search_function = self.a_star
         elif self.search_type == BFS:
@@ -93,7 +96,6 @@ class Search:
                     return
                 self.start_state = final_state
 
-
     # This a-star takes information from the search class
     def a_star(self):
         # initializing open list, closed list and path variables then adding start node to the open list
@@ -110,7 +112,8 @@ class Search:
                 self.cells_traversed += len(closed_list)
                 return find_path(self.start_state, current_state)
 
-            children = State.get_children(current_state, self.goal_state, self.explored_grid, self.heuristics_function, self.heuristics_weight)
+            children = State.get_children(current_state, self.goal_state, self.explored_grid, self.heuristics_function,
+                                          self.heuristics_weight)
 
             if len(children) == 0:
                 continue

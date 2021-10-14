@@ -3,6 +3,8 @@ import heapq as heap
 import matplotlib.pyplot as plt
 import numpy
 
+from Entity.SensedState import SensedState
+
 
 def make_empty_grid(size):
     return numpy.zeros((size, size))
@@ -72,6 +74,21 @@ def generate_graph(x, y, title, x_label, y_label, line_label=""):
     plt.ylabel(y_label)
     leg = plt.legend(loc='upper center')
     plt.show()
+
+
+def calculate_sensed_blocks(neighbors, grid):
+    cx = 0
+    for neighbor in neighbors:
+        if grid[neighbor.x][neighbor.y] == 1:
+            cx += 1
+    return cx
+
+
+def is_path_blocked(grid, path):
+    for cell in path:
+        if grid[cell.x][cell.y] == 1:
+            return True
+    return False
 
 
 '''

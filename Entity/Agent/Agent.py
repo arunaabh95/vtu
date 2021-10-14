@@ -4,9 +4,13 @@ class Agent:
         self.heuristic_function = heuristic_function
         self.heuristic_weight = heuristic_weight
         self.goal_state = goal_state
+        self.bumped = True
 
     def update_explored_grid(self, explored_grid, state):
         pass
 
     def follow_path(self, explored_grid, path):
+        pass
+
+    def has_bumped(self):
         pass

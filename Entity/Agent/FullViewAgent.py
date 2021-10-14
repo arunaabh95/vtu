@@ -39,3 +39,6 @@ class FullViewAgent(Agent):
                 break
 
         return final_state
+
+    def has_bumped(self):
+        return self.bumped

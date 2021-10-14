@@ -31,6 +31,7 @@ class Search:
         self.final_path = []
         self.explored_grid = [[0]]
         self.time = 0
+        self.bump_count = 0
         # self.final_state is not used by us but can be used if we want to see where the algorithm got stuck in the maze
         self.final_state = None
 
@@ -90,6 +91,8 @@ class Search:
 
             if path[len(path) - 1] == self.goal_state:
                 final_state = self.agent.follow_path(self.explored_grid, path)
+                if self.agent.has_bumped():
+                    self.bump_count += 1
                 add_to_final_path(self.final_path, self.start_state, final_state)
                 if final_state == self.goal_state:
                     self.time = time.perf_counter() - start_timer
@@ -226,3 +229,6 @@ class Search:
                 queue.append(child)
                 closed_list.add(child)
         return []
+
+    def get_bump_count(self):
+        return self.bump_count

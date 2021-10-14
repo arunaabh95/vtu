@@ -21,6 +21,10 @@ class NoViewAgent(Agent):
             # if we have found the goal state then also we should return
             if state.x == self.goal_state.x and state.y == self.goal_state.y:
                 final_state = state
+                self.bumped = False
                 break
 
         return final_state
+
+    def has_bumped(self):
+        return self.bumped

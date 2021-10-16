@@ -15,20 +15,69 @@ def get_default_states(complete_grid):
     return start, goal
 
 
+def voyage(probability=GLOBAL_PROBABILITY, grid_size=GLOBAL_BIG_MAZE_SIZE):
+    grid = Grid.make_grid(probability, grid_size)
+    # print(grid)
+    start_state, goal_state = get_default_states(grid)
+    search1 = Search(grid, start_state, goal_state, restrict_field_of_view=ALLOW_BASIC_SENSING)
+    search1.solve_maze()
+    path = search1.get_final_path()
+    # print_path(path)
+    print("Agent 3 ", search1.get_bump_count(), " ", search1.get_path_length())
+    search2 = Search(grid, start_state, goal_state, restrict_field_of_view=ALLOW_FIELD_OF_VIEW)
+    search2.solve_maze()
+    path = search2.get_final_path()
+    # print_path(path)
+    print("Agent 1 ", search2.get_bump_count(), " ", search2.get_path_length())
+    search3 = Search(grid, start_state, goal_state, restrict_field_of_view=RESTRICT_FIELD_OF_VIEW)
+    search3.solve_maze()
+    path = search3.get_final_path()
+    # print_path(path)
+    print("Agent 2 ", search3.get_bump_count(), " ", search3.get_path_length())
+    # print("Success yaya!")
+
+
+'''
 def voyage(probability=GLOBAL_PROBABILITY, grid_size=GLOBAL_SMALL_MAZE_SIZE):
     grid = Grid.make_grid(probability, grid_size)
     print(grid)
     start_state, goal_state = get_default_states(grid)
-    search = Search(grid, start_state, goal_state, restrict_field_of_view=ALLOW_BASIC_SENSING)
-    search.solve_maze()
-    path = search.get_final_path()
+    search1 = Search(grid, start_state, goal_state, restrict_field_of_view=ALLOW_BASIC_SENSING)
+    search1.solve_maze()
+    path = search1.get_final_path()
+    path = search1.get_final_path()
     print_path(path)
-    print(search.get_search_time())
-    print("Success yaya!")
-
+    print("Agent 3 ", search1.get_bump_count(), " ", search1.get_path_length())
+'''
 
 def voyage_on_grid(probability, grid):
-    voyage(probability, len(grid))
+    #  voyage(probability, len(grid))
+    pass
 
 
-voyage()
+for i in range(10):
+    print("test ", i)
+    voyage()
+
+'''
+[[0. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [1. 1. 0. 1. 1. 1. 1. 1. 1. 1. 1. 0. 0. 1. 0. 1. 0. 0. 1. 0.]
+ [1. 1. 0. 1. 0. 1. 1. 0. 1. 0. 1. 1. 0. 0. 1. 0. 1. 1. 0. 0.]
+ [1. 0. 1. 0. 0. 1. 1. 0. 0. 1. 1. 0. 1. 0. 1. 0. 1. 0. 0. 0.]
+ [1. 0. 0. 0. 1. 0. 0. 1. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0. 1. 0.]
+ [1. 1. 0. 0. 0. 1. 0. 0. 0. 0. 1. 1. 0. 1. 0. 0. 0. 1. 0. 0.]
+ [1. 0. 0. 0. 0. 0. 0. 1. 0. 1. 0. 0. 0. 0. 0. 1. 1. 1. 0. 0.]
+ [0. 0. 1. 0. 0. 1. 0. 0. 0. 1. 1. 1. 1. 1. 1. 1. 0. 0. 1. 0.]
+ [0. 0. 0. 1. 0. 1. 1. 0. 0. 0. 0. 0. 0. 1. 1. 0. 0. 1. 0. 0.]
+ [0. 1. 0. 0. 0. 1. 1. 0. 0. 1. 0. 0. 0. 1. 1. 0. 0. 0. 0. 0.]
+ [0. 0. 1. 0. 0. 1. 0. 1. 0. 1. 0. 0. 1. 0. 0. 0. 1. 0. 0. 0.]
+ [0. 1. 1. 0. 0. 1. 1. 1. 0. 0. 0. 0. 1. 1. 0. 0. 1. 1. 1. 0.]
+ [0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 1. 0. 0. 1. 0. 1. 0.]
+ [1. 1. 0. 1. 0. 0. 0. 1. 1. 0. 0. 1. 0. 1. 0. 1. 0. 1. 1. 0.]
+ [1. 1. 0. 0. 1. 1. 1. 0. 1. 0. 0. 0. 1. 1. 0. 0. 1. 1. 0. 0.]
+ [0. 1. 0. 0. 0. 0. 0. 0. 1. 0. 0. 1. 1. 0. 0. 1. 1. 1. 0. 0.]
+ [1. 0. 1. 0. 1. 0. 1. 0. 1. 0. 0. 0. 1. 1. 0. 0. 1. 1. 0. 0.]
+ [0. 0. 0. 1. 1. 0. 1. 1. 0. 0. 1. 1. 0. 1. 0. 0. 0. 0. 0. 0.]
+ [0. 1. 0. 0. 1. 0. 0. 1. 1. 0. 1. 0. 0. 0. 1. 0. 1. 0. 1. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]]
+'''

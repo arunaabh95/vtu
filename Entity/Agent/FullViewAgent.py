@@ -35,6 +35,7 @@ class FullViewAgent(Agent):
 
             # if we have found the goal state then also we should return
             if state.x == self.goal_state.x and state.y == self.goal_state.y:
+                self.bumped = False
                 final_state = state
                 break
 

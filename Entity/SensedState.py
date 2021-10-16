@@ -1,3 +1,6 @@
+from Sensing.KnowledgeBase import *
+
+
 class SensedState:
     def __init__(self,  x,  y, grid):
         self.x = x
@@ -18,14 +21,27 @@ class SensedState:
         positions = [[0, 1], [1, 0], [1, 1], [-1, -1], [-1, 0], [0, -1], [1, -1], [-1, 1]]
         for i in positions:
             if len(grid) > state.x + i[0] >= 0 and len(grid) > state.y + i[1] >= 0:
-                neighbors.append(SensedState(state.x + i[0], state.y + i[1], grid))
+                if is_in_sensed_grid(state.x + i[0], state.y + i[1]):
+                    neighbor = get_element_from_sensed_grid(state.x + i[0], state.y + i[1])
+                    neighbors.append(neighbor)
+                else:
+                    neighbor = SensedState(state.x + i[0], state.y + i[1], grid)
+                    add_to_sensed_grid(neighbor)
+                    mark_uncertain(neighbor)
+                    neighbors.append(neighbor)
         return neighbors
+
+    def set_neighbors(self, neighbors):
+        self.neighbours = neighbors
 
     def get_neighbors(self):
         return self.neighbours
 
     def get_nx(self):
         return len(self.neighbours)
+
+    def __eq__(self, state):
+        return self.id == state.id
 
     def __contains__(self, item):
         return self.id == item.id

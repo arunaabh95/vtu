@@ -78,13 +78,24 @@ class Search:
     def solve_maze(self):
         self.initialize_entities()
         start_timer = time.perf_counter()
+        # Hack: We are adding the initial start state using a flag.
+        # This was needed because from next iteration of a-star we are not starting
+        # from the new start state since it was already precessed in the previous path
+        add_start_state = True
         # call astar algorithm until we find the maze or fail to do so
         while True:
             # print(explored_grid)
-            path = self.search_function()
-
+            if add_start_state:
+                path = [self.start_state]
+                path += self.search_function()
+                add_start_state = False
+            else:
+                path = self.search_function()
+            # print_path(path)
             # unable  to solve the maze
             if len(path) == 0:
+                if self.agent.has_bumped():
+                    self.bump_count += 1
                 print("No path found")
                 self.final_path = []
                 return

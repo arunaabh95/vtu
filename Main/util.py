@@ -1,9 +1,6 @@
-from math import sqrt
 import heapq as heap
 import matplotlib.pyplot as plt
 import numpy
-
-from Entity.SensedState import SensedState
 
 
 def make_empty_grid(size):
@@ -89,6 +86,11 @@ def is_path_blocked(grid, path):
         if grid[cell.x][cell.y] == 1:
             return True
     return False
+
+
+def print_state(state):
+    print("x  y  cx  ex  bx  hx  nx")
+    print(state.x, " ", state.y, " ", state.sensed_count, " ", state.empty_count, " ", state.blocked_count, " ", state.uncertain_count, " ", state.get_nx())
 
 
 '''

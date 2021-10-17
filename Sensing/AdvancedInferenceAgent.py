@@ -31,7 +31,7 @@ class AdvancedInferenceEngine:
             sensed_state.set_blocked(sensed_state.get_blocked() + sensed_state.get_uncertain())
             sensed_state.set_uncertain(0)
             AdvancedInferenceEngine.mark_all_uncertain_cells_blocked(explored_grid, neighbors)
-        AdvancedInferenceEngine.apply_inference_with_parent(state, sensed_state, explored_grid)
+        # AdvancedInferenceEngine.apply_inference_with_parent(state, sensed_state, explored_grid)
         AdvancedInferenceEngine.update_current_state(sensed_state, explored_grid)
 
     @staticmethod
@@ -41,12 +41,14 @@ class AdvancedInferenceEngine:
                 remove_uncertain(cell)
                 mark_empty(cell)
                 add_to_sensed_grid(cell)
+                AdvancedInferenceEngine.update_neighbors(cell, EMPTY_STATE)
 
     @staticmethod
     def mark_all_uncertain_cells_blocked(explored_grid, cells):
         for cell in cells:
             if is_uncertain(cell):
                 AdvancedInferenceEngine.block_cell(cell, explored_grid)
+                AdvancedInferenceEngine.update_neighbors(cell, BLOCKED_STATE)
 
     @staticmethod
     def update_neighbors(cell, cell_state):
@@ -80,7 +82,7 @@ class AdvancedInferenceEngine:
         if parent is None:
             return
         sensed_parent = get_element_from_sensed_grid(parent.x, parent.y)
-        if sensed_state.get_uncertain() - sensed_parent.get_uncertain() == 3:
+        if sensed_state.get_uncertain() - sensed_parent.get_uncertain() == 3 and sensed_state.get_nx():
             print("vignesh chutiya ", state.x, "  ", state.y)
             neighbors = sensed_state.get_neighbors()
             for neighbor in neighbors:

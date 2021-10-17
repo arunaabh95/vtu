@@ -4,7 +4,7 @@ from Main.util import *
 from Constants.environment_constants import *
 from Main.voyage import get_default_states
 
-PROBABILITIES = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5]
+PROBABILITIES = [0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32, 0.36, 0.4]
 TEST_COUNT = GLOBAL_TEST_COUNT
 GRID_SIZE = GLOBAL_BIG_MAZE_SIZE
 # TODO: arunaabh95 add 4th agent in the array
@@ -31,13 +31,12 @@ def initialize_test_variables(probability):
 def get_final_path_length(search, start_state, goal_state):
     explored_grid = search.get_explored_grid()
     final_path = set([(str(state.x) + "_" + str(state.y)) for state in search.get_final_path()])
-    for i in range(explored_grid):
-        for j in range(explored_grid):
+    for i in range(len(explored_grid)):
+        for j in range(len(explored_grid)):
             if (str(i) + "_" + str(j)) in final_path:
                 explored_grid[i][j] = 0
             else:
                 explored_grid[i][j] = 1
-    print(explored_grid)
     return len(Search.generic_a_star(explored_grid, start_state, goal_state, search.get_heuristic_function()))
 
 
@@ -56,33 +55,40 @@ def conduct_tests():
         total_time = []
         total_trajectory_length = []
         total_final_path_length = []
+        test_count = TEST_COUNT
+        # if the test_index = 0 does not have a solution then we need this variable to store the first record per agent
+        # so we increase it to agent length so we have added one metric for each agent and then break
+        first_record = 0
         for test_index in range(TEST_COUNT):
             i = 0
-
             grid, start_state, goal_state = initialize_test_variables(probability)
             while i < len(AGENTS):
                 search = Search(grid, start_state, goal_state, restrict_field_of_view=AGENTS[i])
                 search.solve_maze()
+                if search.get_path_length() == 0:
+                    test_count -= 1
+                    break
                 final_path_length = get_final_path_length(search, start_state, goal_state)
                 print("Agent ", i, search.get_search_time(), search.get_bump_count(), search.get_path_length())
-                if test_index == 0:
+                if first_record < len(AGENTS):
                     total_bumps.append(search.get_bump_count())
                     total_time.append(search.get_search_time())
                     total_trajectory_length.append(search.get_path_length())
                     total_final_path_length.append(final_path_length)
+                    first_record += 1
                 else:
                     total_bumps[i] += search.get_bump_count()
                     total_trajectory_length[i] += search.get_path_length()
                     total_time[i] += search.get_search_time()
-                    total_final_path_length += final_path_length
+                    total_final_path_length[i] += final_path_length
                 i += 1
 
         i = 0
         while i < len(AGENTS):
-            avg_bumps_for_probability.append(total_bumps[i]/TEST_COUNT)
-            avg_time_for_probability.append(total_time[i]/TEST_COUNT)
-            avg_trajectory_length_for_probability.append(total_trajectory_length[i]/TEST_COUNT)
-            avg_final_path_length_for_probability.append(total_final_path_length[i]/TEST_COUNT)
+            avg_bumps_for_probability.append(total_bumps[i]/test_count)
+            avg_time_for_probability.append(total_time[i]/test_count)
+            avg_trajectory_length_for_probability.append(total_trajectory_length[i]/test_count)
+            avg_final_path_length_for_probability.append(total_final_path_length[i]/test_count)
             i += 1
 
         average_bumps.append(avg_bumps_for_probability)

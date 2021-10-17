@@ -31,6 +31,7 @@ class Search:
         self.final_path = []
         self.explored_grid = [[0]]
         self.time = 0
+        self.planning_time = 0
         self.bump_count = 0
         # self.final_state is not used by us but can be used if we want to see where the algorithm got stuck in the maze
         self.final_state = None
@@ -38,6 +39,9 @@ class Search:
     # All functions to get search state variables
     def get_search_time(self):
         return self.time
+
+    def get_planning_time(self):
+        return self.planning_time
 
     def get_cells_processed(self):
         return self.cells_traversed
@@ -86,11 +90,14 @@ class Search:
         while True:
             # print(explored_grid)
             if add_start_state:
+                start_plan_timer = time.perf_counter()
                 path = [self.start_state]
                 path += self.search_function()
                 add_start_state = False
             else:
+                start_plan_timer = time.perf_counter()
                 path = self.search_function()
+            self.planning_time += time.perf_counter() - start_plan_timer
             # print_path(path)
             # unable  to solve the maze
             if len(path) == 0:

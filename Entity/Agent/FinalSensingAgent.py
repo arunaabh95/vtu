@@ -18,11 +18,6 @@ class FinalSensingAgent(Agent):
         final_state = None
         for state in path:
             sensed_state = process_state(state, self.complete_grid)
-            blocked_by_inference = self.infer_to_block(state, sensed_state, explored_grid, path)
-
-            if blocked_by_inference:
-                final_state = state.parent_state
-                break
 
             # The above were pre execution steps we do not check complete grid as of now so no real execution
             # if we encounter an block in our path we check for final state and also mark it as blocked
@@ -42,20 +37,16 @@ class FinalSensingAgent(Agent):
 
             AdvancedInferenceEngine.infer(state, sensed_state, explored_grid)
 
+            blocked_by_inference = self.infer_to_block(state, sensed_state, explored_grid, path)
+
+            if blocked_by_inference:
+                final_state = state
+                break
+
         return final_state
 
     def infer_to_block(self, state, sensed_state, explored_grid, path):
         blocked_by_inference = False
-        '''
-        # print_state(sensed_state)
-        # lookup explored grid to see if we have blocked the cell via the inference engine
-        if explored_grid[state.x][state.y] == 1:
-            # print("Inferred block")
-            blocked_by_inference = True
-            AdvancedInferenceEngine.update_neighbors(sensed_state, BLOCKED_STATE)
-            self.update_parent(state.parent_state, explored_grid)
-            self.bumped = False
-        '''
 
         # If post inference we find path is blocked
         if is_path_blocked(explored_grid, path):

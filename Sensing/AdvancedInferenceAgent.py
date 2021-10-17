@@ -87,23 +87,23 @@ class AdvancedInferenceEngine:
                 # do not change parent or any cell that is not in uncertain already
                 if (neighbor.x == sensed_parent.x and neighbor.y == sensed_parent.y) or not is_uncertain(neighbor):
                     continue
-                # if parent was on left
+                # if parent was above
                 if sensed_parent.x == sensed_state.x - 1:
                     if neighbor.x == sensed_state.x + 1:
                         AdvancedInferenceEngine.block_cell(neighbor, explored_grid)
                         AdvancedInferenceEngine.update_neighbors(neighbor, BLOCKED_STATE)
-                # if parent was on right
+                # if parent was below
                 if sensed_parent.x == sensed_state.x + 1:
                     if neighbor.x == sensed_state.x-1:
                         AdvancedInferenceEngine.block_cell(neighbor, explored_grid)
-                        AdvancedInferenceEngine.update_neighbors(neighbor,BLOCKED_STATE)
-                # if parent was below
+                        AdvancedInferenceEngine.update_neighbors(neighbor, BLOCKED_STATE)
+                # if parent was on left
                 if sensed_parent.y == sensed_state.y - 1:
                     if neighbor.y == sensed_state.y + 1:
                         AdvancedInferenceEngine.block_cell(neighbor, explored_grid)
                         AdvancedInferenceEngine.update_neighbors(neighbor, BLOCKED_STATE)
-                # if parent was above
-                if sensed_parent.y == sensed_state.y - 1:
+                # if parent was on right
+                if sensed_parent.y == sensed_state.y + 1:
                     if neighbor.y == sensed_state.y - 1:
                         AdvancedInferenceEngine.block_cell(neighbor, explored_grid)
                         AdvancedInferenceEngine.update_neighbors(neighbor, BLOCKED_STATE)

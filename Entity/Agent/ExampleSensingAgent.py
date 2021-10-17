@@ -7,6 +7,7 @@ from Constants.environment_constants import *
 
 class ExampleSensingAgent(Agent):
     def __init__(self, complete_grid, goal_state, heuristic_function, heuristic_weight):
+        reset_knowledge_base()
         self.inference_engine = InferenceEngine(complete_grid)
         super().__init__(complete_grid, goal_state, heuristic_function, heuristic_weight)
 
@@ -46,16 +47,17 @@ class ExampleSensingAgent(Agent):
 
     def infer_to_block(self, state, sensed_state, explored_grid, path):
         blocked_by_inference = False
-
+        '''
         # lookup explored grid to see if we have blocked the cell via the inference engine
         if explored_grid[state.x][state.y] == 1:
             blocked_by_inference = True
             InferenceEngine.update_neighbors(sensed_state, BLOCKED_STATE)
             self.update_parent(state.parent_state, explored_grid)
             self.bumped = False
+        '''
 
         # If post inference we find path is blocked
-        elif is_path_blocked(explored_grid, path):
+        if is_path_blocked(explored_grid, path):
             InferenceEngine.infer(sensed_state, explored_grid)
             self.bumped = False
             blocked_by_inference = True

@@ -15,10 +15,9 @@ def get_default_states(complete_grid):
     return start, goal
 
 
-'''
 def voyage(probability=GLOBAL_PROBABILITY, grid_size=GLOBAL_BIG_MAZE_SIZE):
     grid = Grid.make_grid(probability, grid_size)
-    # print(grid)
+    print(grid)
     start_state, goal_state = get_default_states(grid)
     search1 = Search(grid, start_state, goal_state, restrict_field_of_view=ALLOW_FIELD_OF_VIEW)
     search1.solve_maze()
@@ -42,11 +41,11 @@ def voyage(probability=GLOBAL_PROBABILITY, grid_size=GLOBAL_BIG_MAZE_SIZE):
     search4 = Search(grid, start_state, goal_state, restrict_field_of_view=ALLOW_ADVANCED_SENSING)
     search4.solve_maze()
     path = search4.get_final_path()
-    # print_path(path)
+    # print(search4.get_explored_grid())
     print("Agent 4 ", search4.get_bump_count(), " ", search4.get_path_length(), " ", search4.get_search_time())
+
+
 '''
-
-
 def voyage(probability=GLOBAL_PROBABILITY, grid_size=GLOBAL_SMALL_MAZE_SIZE):
     grid = Grid.make_grid(probability, grid_size)
     print(grid)
@@ -56,8 +55,7 @@ def voyage(probability=GLOBAL_PROBABILITY, grid_size=GLOBAL_SMALL_MAZE_SIZE):
     path = search1.get_final_path()
     print_path(path)
     print("Agent 3 ", search1.get_bump_count(), " ", search1.get_path_length())
-
-
+'''
 
 def voyage_on_grid(probability, grid):
     #  voyage(probability, len(grid))
@@ -69,24 +67,14 @@ for i in range(10):
     voyage()
 
 '''
-[[0. 0. 1. 1. 0. 0. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0. 0. 1. 1. 0.]
- [0. 0. 1. 0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
- [0. 1. 0. 1. 0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0.]
- [1. 1. 0. 0. 1. 0. 0. 1. 0. 1. 0. 0. 0. 0. 0. 0. 0. 1. 1. 0.]
- [1. 0. 1. 1. 1. 1. 0. 0. 0. 1. 0. 0. 1. 1. 1. 1. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0. 1. 0. 0. 1. 1. 1. 0. 0. 0.]
- [0. 0. 1. 1. 1. 1. 0. 1. 0. 0. 0. 0. 0. 1. 0. 0. 1. 1. 0. 0.]
- [0. 0. 1. 0. 0. 1. 1. 0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 1. 1. 0.]
- [0. 0. 1. 0. 1. 0. 0. 0. 0. 1. 1. 0. 0. 1. 0. 1. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0. 1. 0. 1. 0.]
- [0. 0. 0. 1. 0. 0. 0. 0. 0. 0. 1. 0. 1. 1. 0. 1. 0. 0. 0. 0.]
- [0. 0. 0. 0. 1. 1. 1. 0. 1. 0. 0. 0. 0. 0. 0. 1. 0. 1. 1. 0.]
- [0. 1. 0. 0. 1. 0. 0. 1. 1. 0. 1. 0. 0. 0. 1. 1. 1. 1. 0. 0.]
- [0. 0. 1. 0. 0. 0. 1. 0. 0. 0. 0. 1. 0. 0. 0. 0. 1. 1. 1. 0.]
- [1. 0. 1. 0. 0. 1. 0. 1. 1. 0. 0. 0. 0. 1. 0. 0. 1. 0. 0. 0.]
- [1. 0. 0. 0. 0. 1. 1. 1. 1. 1. 0. 1. 0. 1. 0. 0. 1. 1. 1. 0.]
- [0. 1. 0. 0. 0. 0. 0. 0. 1. 1. 1. 0. 0. 0. 0. 0. 1. 1. 1. 0.]
- [0. 1. 0. 0. 0. 1. 1. 1. 1. 1. 1. 0. 1. 0. 1. 1. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]]
+[[0. 0. 0. 1. 1. 1. 0. 0. 0. 0.]
+ [0. 1. 0. 0. 0. 1. 0. 0. 1. 0.]
+ [1. 1. 0. 0. 1. 0. 1. 0. 0. 0.]
+ [0. 0. 1. 0. 0. 1. 1. 1. 1. 0.]
+ [0. 0. 1. 0. 1. 0. 0. 1. 0. 0.]
+ [0. 0. 0. 1. 0. 0. 0. 1. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 1. 1. 0.]
+ [0. 1. 1. 0. 1. 0. 0. 1. 0. 0.]
+ [0. 0. 0. 1. 1. 0. 1. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]]
 '''

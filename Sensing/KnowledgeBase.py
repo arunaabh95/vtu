@@ -58,3 +58,13 @@ def is_in_sensed_grid(x, y):
 
 def get_element_from_sensed_grid(x, y):
     return sensed_grid[x][y]
+
+
+def reset_knowledge_base():
+    uncertain_cells.clear()
+    blocked_cells.clear()
+    empty_cells.clear()
+    visited.clear()
+    global sensed_grid
+    sensed_grid = [[]]
+

@@ -55,7 +55,7 @@ def conduct_tests():
         total_time = []
         total_trajectory_length = []
         total_final_path_length = []
-        test_count = TEST_COUNT
+        test_count = [TEST_COUNT] * 4
         # if the test_index = 0 does not have a solution then we need this variable to store the first record per agent
         # so we increase it to agent length so we have added one metric for each agent and then break
         first_record = 0
@@ -66,29 +66,28 @@ def conduct_tests():
                 search = Search(grid, start_state, goal_state, restrict_field_of_view=AGENTS[i])
                 search.solve_maze()
                 if search.get_path_length() == 0:
-                    test_count -= 1
-                    break
+                    test_count[i] -= 1     
                 final_path_length = get_final_path_length(search, start_state, goal_state)
-                print("Agent ", i, search.get_search_time(), search.get_bump_count(), search.get_path_length())
+                print("Agent ", i, search.get_planning_time(), search.get_bump_count(), search.get_path_length())
                 if first_record < len(AGENTS):
                     total_bumps.append(search.get_bump_count())
-                    total_time.append(search.get_search_time())
+                    total_time.append(search.get_planning_time())
                     total_trajectory_length.append(search.get_path_length())
                     total_final_path_length.append(final_path_length)
                     first_record += 1
                 else:
                     total_bumps[i] += search.get_bump_count()
                     total_trajectory_length[i] += search.get_path_length()
-                    total_time[i] += search.get_search_time()
+                    total_time[i] += search.get_planning_time()
                     total_final_path_length[i] += final_path_length
                 i += 1
 
         i = 0
         while i < len(AGENTS):
-            avg_bumps_for_probability.append(total_bumps[i]/test_count)
-            avg_time_for_probability.append(total_time[i]/test_count)
-            avg_trajectory_length_for_probability.append(total_trajectory_length[i]/test_count)
-            avg_final_path_length_for_probability.append(total_final_path_length[i]/test_count)
+            avg_bumps_for_probability.append(total_bumps[i]/test_count[i])
+            avg_time_for_probability.append(total_time[i]/test_count[i])
+            avg_trajectory_length_for_probability.append(total_trajectory_length[i]/test_count[i])
+            avg_final_path_length_for_probability.append(total_final_path_length[i]/test_count[i])
             i += 1
 
         average_bumps.append(avg_bumps_for_probability)

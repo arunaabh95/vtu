@@ -14,9 +14,6 @@ def process_state(state, grid):
 
 def compute_sensing_metrics(state, grid):
     neighbors = SensedState.generate_neighbors(state, grid)
-    print("neighbors")
-    for neighbor in neighbors:
-        print_state(neighbor)
     state.set_neighbors(neighbors)
     sensed_count = calculate_sensed_blocks(neighbors, grid)
     if is_in_sensed_grid(state.x, state.y):
@@ -27,8 +24,8 @@ def compute_sensing_metrics(state, grid):
     state.set_sensed(sensed_count)
     state.set_blocked(blocked_cell_count)
     state.set_uncertain(uncertain_cell_count)
-    print("The boss")
-    print_state(state)
+    # print("The boss")
+    # print_state(state)
 
 
 def parameterize_new_state(neighbors):

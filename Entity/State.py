@@ -45,9 +45,6 @@ class State:
     def hx(self):
         return self.hx
 
-    def parent_state(self):
-        return self.parent_state
-
     # The function returns all the children of the current state
     # We do not produce a child if we find that the given position is blocked (if we have that information)
     # We pass heuristic function to initialize new state

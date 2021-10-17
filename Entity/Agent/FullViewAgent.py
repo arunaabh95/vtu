@@ -24,7 +24,6 @@ class FullViewAgent(Agent):
     def follow_path(self, explored_grid, path):
         final_state = None
         for state in path:
-            # IF the agent is blind we do not need to update the neighbours of the explored grid
             self.update_explored_grid(explored_grid, state)
 
             # if we encounter an block in our path we check for final state and also mark it as blocked

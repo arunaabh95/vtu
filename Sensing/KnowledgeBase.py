@@ -3,7 +3,7 @@ empty_cells = set()
 blocked_cells = set()
 uncertain_cells = set()
 visited = set()
-sensed_grid = [[]]
+sensed_grid = [[]]  # To store neighbors that are not processed
 
 
 def mark_blocked(cell):

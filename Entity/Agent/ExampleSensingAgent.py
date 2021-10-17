@@ -1,6 +1,6 @@
 from Entity.Agent.Agent import Agent
 from Main.util import *
-from Sensing.InferenceEngine import InferenceEngine
+from Sensing.BasicInferenceAgent import InferenceEngine
 from Sensing.sensor import *
 from Constants.environment_constants import *
 
@@ -17,6 +17,7 @@ class ExampleSensingAgent(Agent):
         final_state = None
         for state in path:
             sensed_state = process_state(state, self.complete_grid)
+            print_state(sensed_state)
             blocked_by_inference = self.infer_to_block(state, sensed_state, explored_grid, path)
 
             if blocked_by_inference:
@@ -39,6 +40,7 @@ class ExampleSensingAgent(Agent):
                 break
 
             InferenceEngine.infer(sensed_state, explored_grid)
+            print_state(sensed_state)
 
         return final_state
 

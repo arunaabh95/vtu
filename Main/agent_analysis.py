@@ -8,7 +8,7 @@ PROBABILITIES = [0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32, 0.36, 0.4]
 TEST_COUNT = GLOBAL_TEST_COUNT
 GRID_SIZE = GLOBAL_BIG_MAZE_SIZE
 # TODO: arunaabh95 add 4th agent in the array
-AGENTS = [ALLOW_FIELD_OF_VIEW, RESTRICT_FIELD_OF_VIEW, ALLOW_BASIC_SENSING, ALLOW_ADVANCED_SENSING]
+AGENTS = [ALLOW_FIELD_OF_VIEW, RESTRICT_FIELD_OF_VIEW, ALLOW_BASIC_SENSING]
 
 # Metrics to calculate
 # total trajectory_len = path length - from performance_analysis.py
@@ -55,7 +55,7 @@ def conduct_tests():
         total_time = []
         total_trajectory_length = []
         total_final_path_length = []
-        test_count = [TEST_COUNT] * 4
+        test_count = [TEST_COUNT] * 3
         # if the test_index = 0 does not have a solution then we need this variable to store the first record per agent
         # so we increase it to agent length so we have added one metric for each agent and then break
         first_record = 0
@@ -109,16 +109,16 @@ def generate_graphs(avg_bump_count, avg_time, avg_trajectory_length, avg_final_p
     print(avg_time)
     generate_graph(PROBABILITIES, avg_bump_count,
                    "Average Bumps Analysis", "Probability", "Bump Counts",
-                   ["Full View Agent", "No View Agent", "Basic Sensing Agent", "Advanced Sensing Agent"])
+                   ["Full View Agent", "No View Agent", "Basic Sensing Agent"])
     generate_graph(PROBABILITIES, avg_time,
                    "Average Time Analysis", "Probability", "Avg Time",
-                   ["Full View Agent", "No View Agent", "Basic Sensing Agent", "Advanced Sensing Agent"])
+                   ["Full View Agent", "No View Agent", "Basic Sensing Agent"])
     generate_graph(PROBABILITIES, avg_trajectory_length,
                    "Average Trajectory Length", "Probability", "Avg Trajectory Length",
-                   ["Full View Agent", "No View Agent", "Basic Sensing Agent", "Advanced Sensing Agent"])
+                   ["Full View Agent", "No View Agent", "Basic Sensing Agent"])
     generate_graph(PROBABILITIES, avg_final_path_length,
                    "Average Full Path Length", "Probability", "Avg Final Path Length",
-                    ["Full View Agent", "No View Agent", "Basic Sensing Agent", "Advanced Sensing Agent"])
+                    ["Full View Agent", "No View Agent", "Basic Sensing Agent"])
 
 
 agent_analysis()

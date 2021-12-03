@@ -3,7 +3,7 @@ from Entity.Grid import Grid
 from Main.Search import *
 from Main.voyage import get_default_states
 
-PROBABILITIES = [0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3, 0.33, 0.36]
+PROBABILITIES = [0.06, 0.12, 0.18, 0.24, 0.3, 0.36]
 TEST_COUNT = GLOBAL_TEST_COUNT
 GRID_SIZE = GLOBAL_BIG_MAZE_SIZE
 # for q6 we allow field of view and for q7 we restrict it

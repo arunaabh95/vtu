@@ -3,6 +3,7 @@ import heapq as heap
 import matplotlib.pyplot as plt
 import numpy
 
+
 def make_empty_grid(size):
     return numpy.zeros((size, size))
 

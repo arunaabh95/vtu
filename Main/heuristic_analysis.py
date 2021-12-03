@@ -5,7 +5,6 @@ from Constants.environment_constants import *
 from Entity.Grid import Grid
 from Main.util import *
 import time
-import numpy
 
 GRID_SIZE = GLOBAL_BIG_MAZE_SIZE
 GRID_COUNT = GLOBAL_TEST_COUNT

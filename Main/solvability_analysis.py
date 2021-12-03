@@ -11,7 +11,7 @@ TEST_COUNT = GLOBAL_TEST_COUNT
 
 
 def test_main():
-    probabilities = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8]
+    probabilities = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45]
     solvability_list = []
     for probability in probabilities:
         solvability_list.append(run_tests(probability, TEST_COUNT) / TEST_COUNT * 100)

@@ -1,3 +1,4 @@
+from Entity.State import State
 from Main.util import *
 from Constants.environment_constants import *
 
@@ -24,9 +25,10 @@ class Agent:
     # return the first blocked cell while the agent is traversing the path given to it by the planner
     # Once the agent is stuck it will return the position of the last block it is stuck on
     # We have also included the functionality to update the grid as the agent is traversing it
-    def follow_path(self, explored_grid, path):
+    def follow_path(self, explored_grid, path, data):
         final_state = None
         for state in path:
+            data.append([[state.parent_state.x, state.parent_state.y], explored_grid, [state.x - state.parent_state.x, state.y - state.parent_state.y]])
             # IF the agent is blind we do not need to update the neighbours of the explored grid
             if self.restrict_field_view_flag == ALLOW_FIELD_OF_VIEW:
                 self.update_explored_grid(explored_grid, state)

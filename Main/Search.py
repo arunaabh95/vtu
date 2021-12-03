@@ -1,3 +1,4 @@
+from Entity.State import State
 from Main.util import *
 from Constants.environment_constants import *
 from Entity.Agent import Agent
@@ -32,6 +33,7 @@ class Search:
         self.time = 0
         # self.final_state is not used by us but can be used if we want to see where the algorithm got stuck in the maze
         self.final_state = None
+        self.data = []
 
     # All functions to get search state variables
     def get_search_time(self):
@@ -55,6 +57,9 @@ class Search:
     def get_heuristic_function(self):
         return self.heuristics_function
 
+    def get_movement_data(self):
+        return self.data
+
     def initialize_entities(self):
         grid_size = len(self.grid)
         self.explored_grid = make_empty_grid(grid_size)
@@ -67,7 +72,6 @@ class Search:
             self.search_function = self.bfs
         else:
             self.search_function = self.a_star
-
         self.final_path.append(self.start_state)
 
     # main function to solve the maze
@@ -86,7 +90,7 @@ class Search:
                 return
 
             if path[len(path) - 1] == self.goal_state:
-                final_state = self.agent.follow_path(self.explored_grid, path)
+                final_state = self.agent.follow_path(self.explored_grid, path, self.data)
                 add_to_final_path(self.final_path, self.start_state, final_state)
                 if final_state == self.goal_state:
                     self.time = time.perf_counter() - start_timer

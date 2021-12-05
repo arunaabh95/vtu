@@ -14,7 +14,7 @@ class FinalSensingAgent(Agent):
     def update_explored_grid(self, explored_grid, state):
         explored_grid[state.x][state.y] = 1
 
-    def follow_path(self, explored_grid, path):
+    def follow_path(self, explored_grid, path, data=None):
         final_state = None
         for state in path:
             sensed_state = process_state(state, self.complete_grid)

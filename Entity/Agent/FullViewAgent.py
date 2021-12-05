@@ -21,7 +21,7 @@ class FullViewAgent(Agent):
     # return the first blocked cell while the agent is traversing the path given to it by the planner
     # Once the agent is stuck it will return the position of the last block it is stuck on
     # We have also included the functionality to update the grid as the agent is traversing it
-    def follow_path(self, explored_grid, path):
+    def follow_path(self, explored_grid, path, data=None):
         final_state = None
         for state in path:
             self.update_explored_grid(explored_grid, state)

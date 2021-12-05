@@ -3,11 +3,11 @@ from Entity.Grid import Grid
 from Main.Search import *
 from Main.voyage import get_default_states
 
-PROBABILITIES = [0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3, 0.33, 0.36]
+PROBABILITIES = [0.06, 0.12, 0.18, 0.24, 0.3, 0.36]
 TEST_COUNT = GLOBAL_TEST_COUNT
-GRID_SIZE = GLOBAL_BIG_MAZE_SIZE
+GRID_SIZE = GLOBAL_SMALL_MAZE_SIZE
 # for q6 we allow field of view and for q7 we restrict it
-FIELD_OF_VIEW = ALLOW_FIELD_OF_VIEW
+FIELD_OF_VIEW = ALLOW_BASIC_SENSING
 
 
 def initialize_test_variables(probability, field_of_view):
@@ -15,7 +15,7 @@ def initialize_test_variables(probability, field_of_view):
     start_state, goal_state = get_default_states(grid)
     # for q6 and q7 we have used the default algorithm that is a_star,
     # for q9 we have repeated this by passing search type param as BFS
-    search = Search(grid, start_state, goal_state, field_of_view, search_type=BFS)
+    search = Search(grid, start_state, goal_state, field_of_view)
     return grid, start_state, goal_state, search
 
 

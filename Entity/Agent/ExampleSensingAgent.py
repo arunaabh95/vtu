@@ -14,7 +14,7 @@ class ExampleSensingAgent(Agent):
     def update_explored_grid(self, explored_grid, state):
         explored_grid[state.x][state.y] = 1
 
-    def follow_path(self, explored_grid, path):
+    def follow_path(self, explored_grid, path, data=None):
         final_state = None
         for state in path:
             sensed_state = process_state(state, self.complete_grid)
@@ -29,6 +29,9 @@ class ExampleSensingAgent(Agent):
                 final_state = state.parent_state
                 break
 
+            data[len(data) - 1].append(explored_grid)
+            data[len(data) - 1].append([state.x - data[len(data) - 1][0][0], state.y - data[len(data) - 1][0][1]])
+            data.append([[state.x, state.y]])
             # if we have found the goal state then also we should return
             if state.x == self.goal_state.x and state.y == self.goal_state.y:
                 self.bumped = False

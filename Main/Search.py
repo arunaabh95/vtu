@@ -35,6 +35,7 @@ class Search:
         self.bump_count = 0
         # self.final_state is not used by us but can be used if we want to see where the algorithm got stuck in the maze
         self.final_state = None
+        self.data = []
 
     # All functions to get search state variables
     def get_search_time(self):
@@ -60,6 +61,9 @@ class Search:
 
     def get_heuristic_function(self):
         return self.heuristics_function
+
+    def get_movement_data(self):
+        return self.data
 
     def initialize_entities(self):
         grid_size = len(self.grid)
@@ -108,7 +112,10 @@ class Search:
                 return
 
             if path[len(path) - 1] == self.goal_state:
-                final_state = self.agent.follow_path(self.explored_grid, path)
+                self.data.append([[self.start_state.x, self.start_state.y]])
+                final_state = self.agent.follow_path(self.explored_grid, path, self.data)
+                if len(self.data[len(self.data) - 1]) == 1:
+                    self.data.pop()
                 if self.agent.has_bumped():
                     self.bump_count += 1
                 add_to_final_path(self.final_path, self.start_state, final_state)

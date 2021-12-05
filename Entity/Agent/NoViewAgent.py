@@ -8,7 +8,7 @@ class NoViewAgent(Agent):
     def update_explored_grid(self, explored_grid, state):
         pass
 
-    def follow_path(self, explored_grid, path):
+    def follow_path(self, explored_grid, path, data=None):
         final_state = None
         for state in path:
 

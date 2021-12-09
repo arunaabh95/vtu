@@ -1,4 +1,6 @@
 # call solve_maze and pass field_view = 1
+import pickle
+
 import pandas as pd
 import numpy as np
 
@@ -7,6 +9,7 @@ from Main.Search import *
 from Main.voyage import get_default_states
 
 PROBABILITIES = [0.3]
+pickle.HIGHEST_PROTOCOL = 4
 TEST_COUNT = GLOBAL_TEST_COUNT
 GRID_SIZE = GLOBAL_BIG_MAZE_SIZE
 # for q6 we allow field of view and for q7 we restrict it
@@ -46,7 +49,7 @@ def write_to_file(data):
         data[i][2] = map_direction(data[i][2])
         i += 1
     data = pd.DataFrame(data)
-    data.to_hdf('../Data/train-1.h5', key='df', mode='w')
+    data.to_hdf('../Data/validation-1.h5', key='df', mode='w')
 
 
 def map_direction(inp):

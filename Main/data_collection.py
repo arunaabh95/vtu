@@ -10,7 +10,7 @@ from Main.voyage import get_default_states
 
 PROBABILITIES = [0.06, 0.12, 0.18, 0.24, 0.3, 0.36, 0.42, 0.48]
 TEST_COUNT = GLOBAL_TEST_COUNT
-GRID_SIZE = GLOBAL_SMALL_MAZE_SIZE
+GRID_SIZE = GLOBAL_BIG_MAZE_SIZE
 # for q6 we allow field of view and for q7 we restrict it
 FIELD_OF_VIEW = ALLOW_BASIC_SENSING
 
@@ -34,20 +34,19 @@ def conduct_tests(field_of_view):
             search.solve_maze()
             write_to_file(search.get_movement_data())
             print("Done test ", test_index, "for probability ", probability)
-            data = pd.read_csv('../Data/data-a.csv')
 
 
 def write_to_file(data):
     i = 0
     while i < len(data):
-        g = Grid.make_grid(0, GLOBAL_SMALL_MAZE_SIZE)
+        g = Grid.make_grid(0, GLOBAL_BIG_MAZE_SIZE)
         idxs = data[i][0]
         g[idxs[0]][idxs[1]] = 1
         data[i][0] = json.dumps(g.astype(int).tolist())
         data[i][1] = json.dumps(data[i][1].astype(int).tolist())
         data[i][2] = map_direction(data[i][2])
         i += 1
-    file = open(r'../Data/data-a.csv', 'a')
+    file = open(r'../Data/data-train-3.csv', 'a')
     with file:
         write = csv.writer(file, delimiter=',')
         write.writerows(data)

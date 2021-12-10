@@ -47,7 +47,7 @@ def write_to_file(data):
         data[i][2] = map_direction(data[i][2])
         i += 1
     data = pd.DataFrame(data)
-    data.to_hdf('../Data/validation-3.h5', key='df', mode='w')
+    data.to_hdf('../Data/validation-3.h5', key='validate3', mode='w')
 
 
 def map_direction(inp):

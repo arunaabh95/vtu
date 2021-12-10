@@ -1,6 +1,5 @@
 # call solve_maze and pass field_view = 1
 import pickle
-
 import pandas as pd
 import numpy as np
 
@@ -15,9 +14,6 @@ GRID_SIZE = GLOBAL_BIG_MAZE_SIZE
 # for q6 we allow field of view and for q7 we restrict it
 FIELD_OF_VIEW = ALLOW_BASIC_SENSING
 
-np.set_printoptions(threshold=np.inf)
-
-
 def initialize_test_variables(probability, field_of_view):
     grid = Grid.make_grid(probability, GRID_SIZE)
     start_state, goal_state = get_default_states(grid)
@@ -29,15 +25,24 @@ def initialize_test_variables(probability, field_of_view):
 
 # Initialize search class to run test on given set of probabilities and find all the metrics in q6
 def conduct_tests(field_of_view):
+    data = pd.DataFrame()
     for probability in PROBABILITIES:
         for test_index in range(TEST_COUNT):
             grid, start_state, goal_state, search = initialize_test_variables(probability, field_of_view)
             search.solve_maze()
-            write_to_file(search.get_movement_data())
+            if len(search.final_path) == 0:
+                continue
+            temp = preprocess(search.get_movement_data())
+            print(temp.shape)
+            if test_index == 0:
+                data = temp
+            else:
+                data = pd.concat([data, temp], axis=0)
             print("Done test ", test_index, "for probability ", probability)
+    write_to_file(data)
 
 
-def write_to_file(data):
+def preprocess(data):
     i = 0
     while i < len(data):
         g = Grid.make_grid(0, GLOBAL_BIG_MAZE_SIZE)
@@ -46,8 +51,11 @@ def write_to_file(data):
         data[i][0] = g
         data[i][2] = map_direction(data[i][2])
         i += 1
-    data = pd.DataFrame(data)
-    data.to_hdf('../Data/test-3.h5', key='test', mode='a')
+    return pd.DataFrame(data)
+
+
+def write_to_file(data):
+    data.to_hdf('../Data/train-3.h5', key='df', mode='a')
 
 
 def map_direction(inp):

@@ -47,7 +47,7 @@ def write_to_file(data):
         data[i][2] = map_direction(data[i][2])
         i += 1
     data = pd.DataFrame(data)
-    data.to_hdf('../Data/train-3.h5', key='train3', mode='w')
+    data.to_hdf('../Data/test-3.h5', key='test', mode='a')
 
 
 def map_direction(inp):
